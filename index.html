@@ -291,6 +291,12 @@
             padding: 14px;
             border-radius: 8px;
             border: 2px solid;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .ref-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         .ref-title {
             font-weight: 600;
@@ -371,21 +377,22 @@
         <div id="taskDetailCard" class="card hidden fade-in"></div>
 
         <div id="quickRefCard" class="card">
-            <h3 style="font-size: 17px; font-weight: bold; color: #1e293b; margin-bottom: 14px;">Category Overview</h3>
+            <h3 style="font-size: 17px; font-weight: bold; color: #1e293b; margin-bottom: 14px;">Quick Reference: Category Overview</h3>
+            <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Click a category to view all tasks</p>
             <div class="quick-ref">
-                <div class="ref-card bg-emerald">
+                <div class="ref-card bg-emerald" onclick="selectCategory('Direct Client Work')">
                     <div class="ref-title">Direct Client Work</div>
                     <div class="ref-text">3 tasks (3 billable, 0 non-billable)</div>
                 </div>
-                <div class="ref-card bg-blue">
+                <div class="ref-card bg-blue" onclick="selectCategory('Account Management & Business Development')">
                     <div class="ref-title">Account Management & Business Development</div>
                     <div class="ref-text">6 tasks (2 billable, 4 non-billable)</div>
                 </div>
-                <div class="ref-card bg-purple">
+                <div class="ref-card bg-purple" onclick="selectCategory('Team Development & Quality')">
                     <div class="ref-title">Team Development & Quality</div>
                     <div class="ref-text">6 tasks (0 billable, 6 non-billable)</div>
                 </div>
-                <div class="ref-card bg-amber">
+                <div class="ref-card bg-amber" onclick="selectCategory('Internal Operations')">
                     <div class="ref-title">Internal Operations</div>
                     <div class="ref-text">3 tasks (0 billable, 3 non-billable)</div>
                 </div>
@@ -563,7 +570,7 @@
                 browseView.classList.add('hidden');
                 taskSelectCard.classList.add('hidden');
                 taskDetailCard.classList.add('hidden');
-                quickRefCard.classList.remove('hidden');
+                quickRefCard.classList.add('hidden');
             });
 
             browseTab.addEventListener('click', function() {
@@ -726,6 +733,26 @@
                 taskDetailCard.className = 'card fade-in ' + categoryData.color;
                 taskDetailCard.classList.remove('hidden');
             }
+
+            // Function to select a category from quick reference boxes
+            window.selectCategory = function(category) {
+                // Switch to browse tab
+                browseTab.click();
+                
+                // Set the category dropdown
+                categorySelect.value = category;
+                
+                // Update task selector
+                updateTaskSelect();
+                
+                // Show task selector card and hide quick ref
+                taskSelectCard.classList.remove('hidden');
+                taskDetailCard.classList.add('hidden');
+                quickRefCard.classList.add('hidden');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
         })();
     </script>
 </body>
