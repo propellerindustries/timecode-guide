@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Time Code Usage Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        .search-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 16px;
+            pointer-events: none;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #334155;
+            background: white;
+            font-family: inherit;
+        }
+        input[type="text"] {
+            padding-left: 40px;
+        }
+        select {
+            padding-right: 36px;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .tab:hover {
+            color: #1e293b;
+        }
+        .tab.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .search-result-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .search-result-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+        }
+        .search-result-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .search-result-category {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+        .search-result-snippet {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.4;
+        }
+        .highlight {
+            background: #fef08a;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .task-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .badge-billable {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .badge-nonbillable {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .badge-small {
+            font-size: 11px;
+            padding: 3px 8px;
+            margin-left: 6px;
+        }
+        .alert {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin-bottom: 14px;
+            border-radius: 4px;
+            display: flex;
+            gap: 8px;
+        }
+        .alert-text {
+            font-size: 13px;
+            color: #92400e;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .section {
+            margin-bottom: 14px;
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+        .section-content {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 12px;
+            border-radius: 8px;
+            color: #334155;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .code-block a {
+            color: #60a5fa;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        .code-options {
+            background: #1e293b;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .code-option {
+            padding: 12px;
+            border-bottom: 2px solid #334155;
+        }
+        .code-option:last-child {
+            border-bottom: none;
+        }
+        .code-option-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .code-label {
+            font-weight: 600;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .code-label-billable {
+            background: #166534;
+            color: #dcfce7;
+        }
+        .code-label-nonbillable {
+            background: #991b1b;
+            color: #fee2e2;
+        }
+        .code-path {
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+        .quick-ref {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }
+        .ref-card {
+            padding: 14px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        .ref-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .ref-text {
+            font-size: 13px;
+            color: #64748b;
+        }
+        .bg-emerald { background: #d1fae5; border-color: #a7f3d0; }
+        .bg-blue { background: #dbeafe; border-color: #bfdbfe; }
+        .bg-purple { background: #e9d5ff; border-color: #d8b4fe; }
+        .bg-amber { background: #fef3c7; border-color: #fde68a; }
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            .card { padding: 16px; margin-bottom: 12px; }
+            h1 { font-size: 24px; }
+            .task-title { font-size: 20px; }
+            .quick-ref { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Time Code Usage Guide</h1>
+            <p class="subtitle">Search or browse to find the right time code for your work</p>
+        </div>
+
+        <div class="card">
+            <div class="tabs">
+                <button class="tab active" id="searchTab" type="button">🔍 Search</button>
+                <button class="tab" id="browseTab" type="button">📂 Browse by Category</button>
+            </div>
+
+            <div id="searchView">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Search by task name, description, or code..." autocomplete="off">
+                </div>
+                <div id="searchResults"></div>
+            </div>
+
+            <div id="browseView" class="hidden">
+                <label class="label">Step 1: Select Work Category</label>
+                <select id="categorySelect">
+                    <option value="">Choose a category...</option>
+                    <option value="Direct Client Work">Direct Client Work</option>
+                    <option value="Account Management & Business Development">Account Management & Business Development</option>
+                    <option value="Team Development & Quality">Team Development & Quality</option>
+                    <option value="Internal Operations">Internal Operations</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="taskSelectCard" class="card hidden fade-in">
+            <label class="label">Step 2: Select Specific Task</label>
+            <select id="taskSelect">
+                <option value="">Choose a task...</option>
+            </select>
+        </div>
+
+        <div id="taskDetailCard" class="card hidden fade-in"></div>
+
+        <div id="quickRefCard" class="card">
+            <h3 style="font-size: 17px; font-weight: bold; color: #1e293b; margin-bottom: 14px;">Quick Reference: Category Overview</h3>
+            <div class="quick-ref">
+                <div class="ref-card bg-emerald">
+                    <div class="ref-title">Direct Client Work</div>
+                    <div class="ref-text">3 tasks (3 billable, 0 non-billable)</div>
+                </div>
+                <div class="ref-card bg-blue">
+                    <div class="ref-title">Account Management & Business Development</div>
+                    <div class="ref-text">6 tasks (2 billable, 4 non-billable)</div>
+                </div>
+                <div class="ref-card bg-purple">
+                    <div class="ref-title">Team Development & Quality</div>
+                    <div class="ref-text">6 tasks (0 billable, 6 non-billable)</div>
+                </div>
+                <div class="ref-card bg-amber">
+                    <div class="ref-title">Internal Operations</div>
+                    <div class="ref-text">3 tasks (0 billable, 3 non-billable)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            
+            var timeCodeData = {
+                'Direct Client Work': {
+                    color: 'bg-emerald',
+                    tasks: [
+                        {
+                            name: 'Client-Facing Deliverables',
+                            billable: true,
+                            notes: 'Includes monthly close, financial analysis, strategic support, etc. Also includes any prep work directly related to client deliverables.',
+                            code: 'Coded to the specific client level task. Expected to be coded within the Accounting, Monthly Close, Budgeting & Forecasting or Board Reporting Task Buckets.',
+                            codeLink: 'https://propellerindustries.sharepoint.com/:x:/r/sites/INTPropUniversity/Shared%20Documents/Mavenlink/Training%20Materials/Current%20Mavenlink%20Task%20List.xlsx?d=w923afade204c4e6fbbe1f2ed74de55f4&csf=1&web=1&e=fpxUYz'
+                        },
+                        {
+                            name: 'Client Meetings & Emails',
+                            billable: true,
+                            notes: 'Any meetings or communication with the client outside of the monthly close call. If communication is specific to one task (i.e. AP/AR) utilize that specific code.',
+                            code: 'By Client > Client Management > Client Communications'
+                        },
+                        {
+                            name: 'Internal Team Meetings (Billable)',
+                            billable: true,
+                            notes: 'International team check-in calls or client deliverable calls with US team. If the call can fall into a more specific task, preference is to use that. For example: If you are discussing invoices in BILL, use code Accounts Payable at the client level.',
+                            code: 'By Client > Client Management > Internal Communications'
+                        },
+                        {
+                            name: 'Numeric',
+                            billable: true,
+                            notes: 'Regular numeric activities to complete monthly close.',
+                            code: 'Utilize the appropriate month-close time codes by client to align with what is being reviewed.'
+                        }
+                    ]
+                },
+                'Account Management & Business Development': {
+                    color: 'bg-blue',
+                    tasks: [
+                        {
+                            name: 'Account Management External',
+                            billable: true,
+                            notes: 'Overall account management, scheduling meetings with the client and client team',
+                            code: 'By Client > Client Management > Client Admin'
+                        },
+                        {
+                            name: 'Account Management Internal',
+                            billable: false,
+                            notes: 'Ensuring Service Delivery alignment with client goals. This can vary broadly by client and we should use discretion with use of this code. This can include things like analysis of time for a client to determine if you need to initiate a SOW amendment.',
+                            code: 'Prop | Client Non-Billable > Investment/Relationship (Note: This may be nested under client once code consolidation is completed)'
+                        },
+                        {
+                            name: 'Scoping & Business Development',
+                            billable: false,
+                            notes: 'Scoping a new contract or amendment. This could be a downsell, upsell or a new agreement. Anything related to the client contract.',
+                            code: 'Prop | Sales & Marketing > Biz Dev'
+                        },
+                        {
+                            name: 'Resourcing / Billing Analysis',
+                            billable: false,
+                            notes: 'Working on a resourcing strategy or changes for your client',
+                            code: 'Prop | Internal > Resourcing'
+                        },
+                        {
+                            name: 'Offboarding Activities (Billable)',
+                            billable: true,
+                            notes: 'Submission of offboarding ticket & compilation of disengagement memo (if over 1 hr, use discretion for billing over this standard time needed). Transition training requested by client for new hire or new firm.',
+                            code: 'By Client > Client Management > Client Admin'
+                        },
+                        {
+                            name: 'Offboarding Activities (Non-Billable)',
+                            billable: false,
+                            notes: 'If client is inactive (more than 90 days). Use your judgement depending on the scope of the ask after you have concluded regular billing.',
+                            code: 'Prop | Client Non-Billable > Investment/Relationship (Note: This may be nested under client once code consolidation is completed)'
+                        }
+                    ]
+                },
+                'Team Development & Quality': {
+                    color: 'bg-purple',
+                    tasks: [
+                        {
+                            name: 'Training & Client Transition',
+                            billable: false,
+                            notes: 'Nonbillable unless the client specifically requested or approved participation',
+                            conditional: true,
+                            multipleCodePaths: true,
+                            codePaths: [
+                                { type: 'nonbillable', code: 'By Client > Client Management > New Team Member - On the Job Training' },
+                                { type: 'billable', code: 'By Client > Client Management > Client Transitions' }
+                            ]
+                        },
+                        {
+                            name: 'Internal Team Meetings (Nonbillable)',
+                            billable: false,
+                            notes: 'Unless it\'s directly tied to client needs and deliverables. Think of this category as training sessions for teams in your portfolio. Utilize client specific code if it is a topic unique to that client. If the training is more general skills, utilize mentorship.',
+                            multipleCodePaths: true,
+                            codePaths: [
+                                { type: 'option1', code: 'By Client > Client Management > New Team Member - On the Job Training' },
+                                { type: 'option2', code: 'Prop | Internal > Training-Mentoring/Knowledge Transfer' }
+                            ]
+                        },
+                        {
+                            name: 'Mentorship - Non-client related',
+                            billable: false,
+                            notes: 'General mentoring of team members on Propeller best practices, Propeller induced.',
+                            code: 'Prop | Internal > Training-Mentoring/Knowledge Transfer'
+                        },
+                        {
+                            name: 'Mentorship - Client related',
+                            billable: false,
+                            notes: 'Client specific process and work review to provide guidance to team members',
+                            code: 'Client specific > Non-billable QC'
+                        },
+                        {
+                            name: 'Quality review Non-Billable',
+                            billable: false,
+                            notes: 'Reviewing work due to errors',
+                            code: 'By Client > Accounting > Non-Billable QC'
+                        },
+                        {
+                            name: 'Rework/Clean up',
+                            billable: false,
+                            notes: 'Performing rework/clean up tasks that were incurred due to Propeller team errors.',
+                            code: 'By Client > Re-Work'
+                        }
+                    ]
+                },
+                'Internal Operations': {
+                    color: 'bg-amber',
+                    tasks: [
+                        {
+                            name: 'Client Success Meetings or Activities',
+                            billable: false,
+                            notes: 'Internal re-groups, preparing detail for client escalations, or general CS support',
+                            code: 'Prop | Internal > Client Success Activities'
+                        },
+                        {
+                            name: 'Portfolio Reviews',
+                            billable: false,
+                            notes: 'Meetings scheduled with client success monthly or quarterly',
+                            code: 'Prop | Internal > Portfolio Reviews'
+                        },
+                        {
+                            name: 'Invoice Analysis and time monitoring',
+                            billable: false,
+                            notes: 'Reviewing team time at 1-2 week intervals. Month end review before invoicing goes out.',
+                            code: 'Prop | Internal > Invoice Approvals/Analysis'
+                        }
+                    ]
+                }
+            };
+
+            var searchTab = document.getElementById('searchTab');
+            var browseTab = document.getElementById('browseTab');
+            var searchView = document.getElementById('searchView');
+            var browseView = document.getElementById('browseView');
+            var searchInput = document.getElementById('searchInput');
+            var searchResults = document.getElementById('searchResults');
+            var categorySelect = document.getElementById('categorySelect');
+            var taskSelectCard = document.getElementById('taskSelectCard');
+            var taskSelect = document.getElementById('taskSelect');
+            var taskDetailCard = document.getElementById('taskDetailCard');
+            var quickRefCard = document.getElementById('quickRefCard');
+
+            searchTab.addEventListener('click', function() {
+                searchTab.classList.add('active');
+                browseTab.classList.remove('active');
+                searchView.classList.remove('hidden');
+                browseView.classList.add('hidden');
+                taskSelectCard.classList.add('hidden');
+                taskDetailCard.classList.add('hidden');
+                quickRefCard.classList.remove('hidden');
+            });
+
+            browseTab.addEventListener('click', function() {
+                browseTab.classList.add('active');
+                searchTab.classList.remove('active');
+                browseView.classList.remove('hidden');
+                searchView.classList.add('hidden');
+                searchResults.innerHTML = '';
+                searchInput.value = '';
+            });
+
+            searchInput.addEventListener('input', function(e) {
+                var query = e.target.value.toLowerCase().trim();
+                
+                if (!query) {
+                    searchResults.innerHTML = '';
+                    return;
+                }
+
+                var results = [];
+                for (var category in timeCodeData) {
+                    var data = timeCodeData[category];
+                    for (var i = 0; i < data.tasks.length; i++) {
+                        var task = data.tasks[i];
+                        var codeText = task.multipleCodePaths 
+                            ? task.codePaths.map(function(cp) { return cp.code; }).join(' ')
+                            : task.code || '';
+                        var searchableText = (task.name + ' ' + task.notes + ' ' + codeText).toLowerCase();
+                        
+                        if (searchableText.indexOf(query) !== -1) {
+                            var result = {};
+                            for (var key in task) {
+                                result[key] = task[key];
+                            }
+                            result.category = category;
+                            result.categoryColor = data.color;
+                            results.push(result);
+                        }
+                    }
+                }
+
+                displaySearchResults(results, query);
+            });
+
+            function displaySearchResults(results, query) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="no-results"><p>No results found for "' + escapeHtml(query) + '"</p><p style="margin-top: 8px; font-size: 14px;">Try different keywords or browse by category</p></div>';
+                    return;
+                }
+
+                searchResults.innerHTML = results.map(function(result, idx) {
+                    return '<div class="search-result-item" onclick="showTaskFromSearch(\'' + 
+                        escapeHtml(result.category) + '\', \'' + escapeHtml(result.name).replace(/'/g, "\\'") + '\')">' +
+                        '<div class="search-result-title">' +
+                        highlightText(result.name, query) +
+                        '<span class="badge ' + (result.billable ? 'badge-billable' : 'badge-nonbillable') + ' badge-small">' +
+                        (result.billable ? '✓' : '✗') +
+                        '</span></div>' +
+                        '<div class="search-result-category">' + escapeHtml(result.category) + '</div>' +
+                        '<div class="search-result-snippet">' +
+                        escapeHtml(result.notes.substring(0, 120)) + (result.notes.length > 120 ? '...' : '') +
+                        '</div></div>';
+                }).join('');
+            }
+
+            function highlightText(text, query) {
+                var regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                return escapeHtml(text).replace(regex, '<span class="highlight">$1</span>');
+            }
+
+            function escapeHtml(text) {
+                var div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            window.showTaskFromSearch = function(category, taskName) {
+                browseTab.click();
+                categorySelect.value = category;
+                updateTaskSelect();
+                taskSelect.value = taskName;
+                displayTaskDetail(category, taskName);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            categorySelect.addEventListener('change', function(e) {
+                if (e.target.value) {
+                    updateTaskSelect();
+                    taskSelectCard.classList.remove('hidden');
+                    taskDetailCard.classList.add('hidden');
+                    quickRefCard.classList.add('hidden');
+                } else {
+                    taskSelectCard.classList.add('hidden');
+                    taskDetailCard.classList.add('hidden');
+                    quickRefCard.classList.remove('hidden');
+                }
+            });
+
+            function updateTaskSelect() {
+                var category = categorySelect.value;
+                var tasks = timeCodeData[category].tasks;
+                
+                taskSelect.innerHTML = '<option value="">Choose a task...</option>' +
+                    tasks.map(function(task) {
+                        return '<option value="' + escapeHtml(task.name) + '">' + 
+                            escapeHtml(task.name) + ' ' + (task.billable ? '✓ Billable' : '✗ Non-Billable') + 
+                            '</option>';
+                    }).join('');
+            }
+
+            taskSelect.addEventListener('change', function(e) {
+                if (e.target.value) {
+                    displayTaskDetail(categorySelect.value, e.target.value);
+                    quickRefCard.classList.add('hidden');
+                } else {
+                    taskDetailCard.classList.add('hidden');
+                    quickRefCard.classList.remove('hidden');
+                }
+            });
+
+            function displayTaskDetail(category, taskName) {
+                var categoryData = timeCodeData[category];
+                var task = null;
+                for (var i = 0; i < categoryData.tasks.length; i++) {
+                    if (categoryData.tasks[i].name === taskName) {
+                        task = categoryData.tasks[i];
+                        break;
+                    }
+                }
+                
+                var codeSection = '';
+                if (task.multipleCodePaths) {
+                    codeSection = '<div class="section"><div class="section-title">Time Code Path Options</div><div class="code-options">' +
+                        task.codePaths.map(function(cp) {
+                            var label = cp.type === 'billable' ? 'BILLABLE' : 
+                                       cp.type === 'nonbillable' ? 'NON-BILLABLE' : 
+                                       cp.type === 'option1' ? 'OPTION 1' : 'OPTION 2';
+                            var labelClass = (cp.type === 'billable' ? 'code-label-billable' : 'code-label-nonbillable');
+                            return '<div class="code-option"><div class="code-option-header">' +
+                                '<span class="code-label ' + labelClass + '">' + label + '</span></div>' +
+                                '<div class="code-path">' + escapeHtml(cp.code) + '</div></div>';
+                        }).join('') + '</div></div>';
+                } else {
+                    codeSection = '<div class="section"><div class="section-title">Time Code Path</div><div class="code-block">' +
+                        escapeHtml(task.code) +
+                        (task.codeLink ? ' <a href="' + task.codeLink + '" target="_blank" rel="noopener noreferrer">See full code list here</a>' : '') +
+                        '</div></div>';
+                }
+
+                taskDetailCard.innerHTML = 
+                    '<div class="task-header"><h2 class="task-title">' + escapeHtml(task.name) + '</h2>' +
+                    '<span class="badge ' + (task.billable ? 'badge-billable' : 'badge-nonbillable') + '">' +
+                    (task.billable ? '$ Billable' : '✗ Non-Billable') + '</span></div>' +
+                    (task.conditional ? '<div class="alert"><span style="color: #92400e;">ℹ</span>' +
+                        '<p class="alert-text">Note: This task can be billable if client specifically requested or approved participation</p></div>' : '') +
+                    '<div class="section"><div class="section-title">ℹ Description & Guidance</div>' +
+                    '<div class="section-content">' + escapeHtml(task.notes) + '</div></div>' +
+                    codeSection;
+                
+                taskDetailCard.className = 'card fade-in ' + categoryData.color;
+                taskDetailCard.classList.remove('hidden');
+            }
+        })();
+    </script>
+</body>
+</html>
