@@ -730,12 +730,23 @@
                         '</div></div>';
                 }
 
+                // Determine what alert to show
+                var alertSection = '';
+                if (task.conditionalNote) {
+                    // Use custom conditional note if provided
+                    alertSection = '<div class="alert"><span style="color: #92400e;">ℹ</span>' +
+                        '<p class="alert-text">' + escapeHtml(task.conditionalNote) + '</p></div>';
+                } else if (task.conditional) {
+                    // Use default conditional message
+                    alertSection = '<div class="alert"><span style="color: #92400e;">ℹ</span>' +
+                        '<p class="alert-text">Note: This task can be billable if client specifically requested or approved participation</p></div>';
+                }
+
                 taskDetailCard.innerHTML = 
                     '<div class="task-header"><h2 class="task-title">' + escapeHtml(task.name) + '</h2>' +
                     '<span class="badge ' + (task.billable ? 'badge-billable' : 'badge-nonbillable') + '">' +
                     (task.billable ? '$ Billable' : '✗ Non-Billable') + '</span></div>' +
-                    (task.conditional ? '<div class="alert"><span style="color: #92400e;">ℹ</span>' +
-                        '<p class="alert-text">Note: This task can be billable if client specifically requested or approved participation</p></div>' : '') +
+                    alertSection +
                     '<div class="section"><div class="section-title">ℹ Description & Guidance</div>' +
                     '<div class="section-content">' + escapeHtml(task.notes) + '</div></div>' +
                     codeSection;
