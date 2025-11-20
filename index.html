@@ -420,13 +420,17 @@
                         {
                             name: 'Client Meetings & Emails',
                             billable: true,
-                            notes: 'Any meetings or communication with the client outside of the monthly close call. If communication is specific to one task (i.e. AP/AR) utilize that specific code.',
+                            conditional: true,
+                            conditionalNote: 'If communication is specific to one task (i.e. AP/AR) utilize that specific code.',
+                            notes: 'Any meetings or communication with the client outside of the monthly close call.',
                             code: 'By Client > Client Management > Client Communications'
                         },
                         {
                             name: 'Internal Team Meetings (Billable)',
                             billable: true,
-                            notes: 'International team check-in calls, training calls, or client deliverable calls with US team. If the call can fall into a more specific task, preference is to use that. For example: If you are discussing invoices in BILL, use code Accounts Payable at the client level.',
+                            conditional: true,
+                            conditionalNote: 'If the call can fall into a more specific task, preference is to use that. For example: If you are discussing invoices in BILL, use code Accounts Payable at the client level.',
+                            notes: 'International team check-in calls, training calls, or client deliverable calls with US team.',
                             code: 'By Client > Client Management > Internal Communications'
                         }
                     ]
@@ -451,13 +455,13 @@
                             ]
                         },
                         {
-                            name: 'Scoping & Business Development',
+                            name: 'Business Development',
                             billable: false,
-                            notes: 'Scoping a new contract or amendment. This could be a downsell, upsell or a new agreement. Anything related to the client contract.',
+                            notes: 'Used for independent prospecting, business development, conferences, demos, etc.',
                             code: 'Prop | Sales & Marketing > Biz Dev'
                         },
                         {
-                            name: 'Resourcing / Billing Analysis',
+                            name: 'Resourcing',
                             billable: false,
                             notes: 'Working on a resourcing strategy or changes for your client',
                             code: 'Prop | Internal > Resourcing'
@@ -536,7 +540,7 @@
                         {
                             name: 'Client Success Meetings or Activities',
                             billable: false,
-                            notes: 'Internal re-groups, preparing detail for client escalations, or general CS support',
+                            notes: 'Internal re-groups, preparing detail for client escalations, or general CS support. Includes contract amendment analysis.',
                             code: 'By Client > Client Management > Client Success Activities'
                         },
                         {
