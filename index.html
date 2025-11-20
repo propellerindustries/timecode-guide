@@ -444,7 +444,10 @@
                             name: 'Account Management Internal',
                             billable: false,
                             notes: 'Ensuring Service Delivery alignment with client goals. This can vary broadly by client and we should use discretion with use of this code. This can include things like analysis of time for a client to determine if you need to initiate a SOW amendment.',
-                            code: 'Prop | Client Non-Billable > Investment/Relationship (Note: This may be nested under client once code consolidation is completed)'
+                            codePaths: [
+                                { type: 'option1', code: 'By Client > Client Management > Investment/Relationship (non-billable)s' },
+                                { type: 'option2', code: 'By Client > Client Management > Budgeting/SOW Analysis (non-billable)' }
+                            ]
                         },
                         {
                             name: 'Scoping & Business Development',
@@ -468,7 +471,7 @@
                             name: 'Offboarding Activities (Non-Billable)',
                             billable: false,
                             notes: 'If client is inactive (more than 90 days). Use your judgement depending on the scope of the ask after you have concluded regular billing.',
-                            code: 'Prop | Client Non-Billable > Investment/Relationship (Note: This may be nested under client once code consolidation is completed)'
+                            code: 'By Client > Client Management > Investment/Relationship (non-billable)'
                         }
                     ]
                 },
@@ -482,8 +485,8 @@
                             conditional: true,
                             multipleCodePaths: true,
                             codePaths: [
-                                { type: 'nonbillable', code: 'By Client > Client Management > New Team Member - On the Job Training' },
-                                { type: 'billable', code: 'By Client > Client Management > Client Transitions' }
+                                { type: 'billable', code: 'Coded to the specific client level task' },
+                                { type: 'nonbillable', code: 'By Client > Client Management > Client Transitions' }
                             ]
                         },
                         {
@@ -492,7 +495,7 @@
                             notes: 'Unless it\'s directly tied to client needs and deliverables. Think of this category as training sessions for teams in your portfolio. Utilize client specific code if it is a topic unique to that client. If the training is more general skills, utilize mentorship.',
                             multipleCodePaths: true,
                             codePaths: [
-                                { type: 'option1', code: 'By Client > Client Management > New Team Member - On the Job Training' },
+                                { type: 'option1', code: 'By Client > Client Management > Client Transitions' },
                                 { type: 'option2', code: 'Prop | Internal > Training-Mentoring/Knowledge Transfer' }
                             ]
                         },
@@ -500,7 +503,9 @@
                             name: 'Mentorship - Non-client related',
                             billable: false,
                             notes: 'General mentoring of team members on Propeller best practices, Propeller induced.',
-                            code: 'Prop | Internal > Training-Mentoring/Knowledge Transfer'
+                            codePaths: [
+                                { type: 'option1', code: 'Prop | Internal > New Hire Training (new hire under 90 days only)' },
+                                { type: 'option2', code: 'Prop | Internal > Training-Mentoring/Knowledge Transfer' }
                         },
                         {
                             name: 'Mentorship - Client related',
@@ -529,7 +534,7 @@
                             name: 'Client Success Meetings or Activities',
                             billable: false,
                             notes: 'Internal re-groups, preparing detail for client escalations, or general CS support',
-                            code: 'Prop | Internal > Client Success Activities'
+                            code: 'By Client > Client Management > Client Success Activities'
                         },
                         {
                             name: 'Portfolio Reviews',
