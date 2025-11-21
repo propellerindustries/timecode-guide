@@ -346,20 +346,20 @@
             <h3 style="font-size: 17px; font-weight: bold; color: #1e293b; margin-bottom: 8px;">Quick Reference: Category Overview</h3>
             <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Click a category to view all tasks in that section</p>
             <div class="quick-ref">
-                <div class="ref-card bg-emerald" onclick="selectCategory('Direct Client Work')">
-                    <div class="ref-title">Direct Client Work</div>
+                <div class="ref-card bg-emerald" onclick="selectCategory('Direct Client Work & Meetings')">
+                    <div class="ref-title">Direct Client Work & Meetings</div>
                     <div class="ref-text">3 tasks (3 billable, 0 non-billable)</div>
                 </div>
-                <div class="ref-card bg-blue" onclick="selectCategory('Account Management & Business Development')">
-                    <div class="ref-title">Account Management & Business Development</div>
-                    <div class="ref-text">6 tasks (2 billable, 4 non-billable)</div>
+                <div class="ref-card bg-blue" onclick="selectCategory('Client Management, Sales & Business Development')">
+                    <div class="ref-title">Client Management, Sales & Business Development</div>
+                    <div class="ref-text">7 tasks (2 billable, 5 non-billable)</div>
                 </div>
                 <div class="ref-card bg-purple" onclick="selectCategory('Team Development & Quality')">
                     <div class="ref-title">Team Development & Quality</div>
                     <div class="ref-text">6 tasks (0 billable, 6 non-billable)</div>
                 </div>
-                <div class="ref-card bg-amber" onclick="selectCategory('Internal Operations')">
-                    <div class="ref-title">Internal Operations</div>
+                <div class="ref-card bg-amber" onclick="selectCategory('Internal Operations & Meetings')">
+                    <div class="ref-title">Internal Operations & Meetings</div>
                     <div class="ref-text">3 tasks (0 billable, 3 non-billable)</div>
                 </div>
             </div>
@@ -384,10 +384,10 @@
                 <label class="label">Step 1: Select Work Category</label>
                 <select id="categorySelect">
                     <option value="">Choose a category...</option>
-                    <option value="Direct Client Work">Direct Client Work</option>
-                    <option value="Account Management & Business Development">Account Management & Business Development</option>
+                    <option value="Direct Client Work & Meetings">Direct Client Work & Meetings</option>
+                    <option value="Client Management, Sales & Business Development">Client Management, Sales & Business Development</option>
                     <option value="Team Development & Quality">Team Development & Quality</option>
-                    <option value="Internal Operations">Internal Operations</option>
+                    <option value="Internal Operations & Meetings">Internal Operations & Meetings</option>
                 </select>
             </div>
         </div>
@@ -407,7 +407,7 @@
             'use strict';
             
             var timeCodeData = {
-                'Direct Client Work': {
+                'Direct Client Work & Meetings': {
                     color: 'bg-emerald',
                     tasks: [
                         {
@@ -422,7 +422,7 @@
                             billable: true,
                             conditional: true,
                             conditionalNote: 'If communication is specific to one task (i.e. AP/AR) utilize that specific code.',
-                            notes: 'Any meetings or communication with the client outside of the monthly close call.',
+                            notes: 'Any meetings or communications with the client outside of the monthly close call. Monthly close calls (internal and client facing) have their own unique task.',
                             code: 'By Client > Client Management > Client Communications'
                         },
                         {
@@ -435,7 +435,7 @@
                         }
                     ]
                 },
-                'Account Management & Business Development': {
+                'Client Management, Sales & Business Development': {
                     color: 'bg-blue',
                     tasks: [
                         {
@@ -453,6 +453,12 @@
                                 { type: 'option1', code: 'By Client > Client Management > Investment/Relationship (non-billable)' },
                                 { type: 'option2', code: 'By Client > Client Management > Budgeting/SOW Analysis (non-billable)' }
                             ]
+                        },
+                        {
+                            name: 'Sales',
+                            billable: false,
+                            notes: 'Used for partnering with sales team on live lead/deal',
+                            code: 'Prop | Sales & Marketing > Sales'
                         },
                         {
                             name: 'Business Development',
@@ -523,7 +529,7 @@
                         {
                             name: 'Quality review Non-Billable',
                             billable: false,
-                            notes: 'Reviewing work due to errors',
+                            notes: 'Reviewing monthly accounting work to ensure consistent quality of work. Review is typically at the engagement lead or technical accounting role.',
                             code: 'By Client > Accounting > Non-Billable QC'
                         },
                         {
@@ -534,7 +540,7 @@
                         }
                     ]
                 },
-                'Internal Operations': {
+                'Internal Operations & Meetings': {
                     color: 'bg-amber',
                     tasks: [
                         {
