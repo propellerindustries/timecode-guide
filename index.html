@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Time Code Usage Guide</title>
+    <title>Time Code Usage Guide - All Company Codes</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 1024px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         .card {
@@ -41,6 +41,37 @@
         .subtitle {
             color: #64748b;
             font-size: 14px;
+        }
+        .filter-indicator {
+            background: #dbeafe;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .filter-text {
+            color: #1e40af;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .clear-filter-btn {
+            padding: 6px 16px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+        .clear-filter-btn:hover {
+            background: #2563eb;
         }
         .label {
             display: block;
@@ -90,31 +121,27 @@
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
-        .tabs {
+        .task-list-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
             display: flex;
-            gap: 6px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0;
+            justify-content: space-between;
+            align-items: center;
         }
-        .tab {
-            padding: 10px 20px;
-            background: none;
-            border: none;
+        .task-list-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+            transform: translateX(4px);
+        }
+        .task-list-name {
             font-size: 15px;
             font-weight: 600;
-            color: #64748b;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-        .tab:hover {
             color: #1e293b;
-        }
-        .tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
         }
         .hidden {
             display: none !important;
@@ -138,7 +165,7 @@
             color: #1e293b;
             margin-bottom: 4px;
         }
-        .search-result-category {
+        .search-result-meta {
             font-size: 12px;
             color: #64748b;
             margin-bottom: 6px;
@@ -194,20 +221,12 @@
             padding: 3px 8px;
             margin-left: 6px;
         }
-        .alert {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            padding: 12px;
-            margin-bottom: 14px;
-            border-radius: 4px;
-            display: flex;
-            gap: 8px;
-        }
-        .alert-text {
-            font-size: 13px;
-            color: #92400e;
-            font-weight: 500;
-            line-height: 1.4;
+        .badge-level {
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 11px;
+            padding: 3px 8px;
+            margin-left: 6px;
         }
         .section {
             margin-bottom: 14px;
@@ -236,56 +255,10 @@
             line-height: 1.5;
             overflow-x: auto;
         }
-        .code-block a {
-            color: #60a5fa;
-            text-decoration: underline;
-            word-break: break-all;
-        }
-        .code-options {
-            background: #1e293b;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .code-option {
-            padding: 12px;
-            border-bottom: 2px solid #334155;
-        }
-        .code-option:last-child {
-            border-bottom: none;
-        }
-        .code-option-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-        .code-label {
-            font-weight: 600;
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .code-label-billable {
-            background: #166534;
-            color: #dcfce7;
-        }
-        .code-label-nonbillable {
-            background: #991b1b;
-            color: #fee2e2;
-        }
-        .code-path {
-            color: #e2e8f0;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.5;
-            word-break: break-word;
-        }
         .quick-ref {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
         .ref-card {
             padding: 14px;
@@ -312,6 +285,11 @@
         .bg-blue { background: #dbeafe; border-color: #bfdbfe; }
         .bg-purple { background: #e9d5ff; border-color: #d8b4fe; }
         .bg-amber { background: #fef3c7; border-color: #fde68a; }
+        .bg-rose { background: #ffe4e6; border-color: #fecdd3; }
+        .bg-cyan { background: #cffafe; border-color: #a5f3fc; }
+        .bg-lime { background: #ecfccb; border-color: #d9f99d; }
+        .bg-indigo { background: #e0e7ff; border-color: #c7d2fe; }
+        .bg-orange { background: #fed7aa; border-color: #fdba74; }
         .fade-in {
             animation: fadeIn 0.3s ease-out;
         }
@@ -338,60 +316,43 @@
     <div class="container">
         <div class="card">
             <h1>Time Code Usage Guide</h1>
-            <p class="subtitle">Search or browse to find the right time code for your work</p>
+            <p class="subtitle">Search or browse all company time codes by service category</p>
         </div>
 
         <!-- Category Overview - Always Visible -->
-        <div class="card">
-            <h3 style="font-size: 17px; font-weight: bold; color: #1e293b; margin-bottom: 8px;">Quick Reference: Category Overview</h3>
-            <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Click a category to view all tasks in that section</p>
-            <div class="quick-ref">
-                <div class="ref-card bg-emerald" onclick="selectCategory('Direct Client Work & Meetings')">
-                    <div class="ref-title">Direct Client Work & Meetings</div>
-                    <div class="ref-text">3 tasks (3 billable, 0 non-billable)</div>
-                </div>
-                <div class="ref-card bg-amber" onclick="selectCategory('Client Management, Sales & Business Development')">
-                    <div class="ref-title">Client Management, Sales & Business Development</div>
-                    <div class="ref-text">10 tasks (2 billable, 8 non-billable)</div>
-                </div>
-                <div class="ref-card bg-purple" onclick="selectCategory('Team Development & Quality')">
-                    <div class="ref-title">Team Development & Quality</div>
-                    <div class="ref-text">6 tasks (0 billable, 6 non-billable)</div>
+        <div class="card" id="categoryOverview">
+            <h3 style="font-size: 17px; font-weight: bold; color: #1e293b; margin-bottom: 8px;">Service Categories</h3>
+            <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Click a category to view tasks in that area</p>
+            <div class="quick-ref" id="categoryCards"></div>
+        </div>
+
+        <!-- Filter Indicator (Hidden by default) -->
+        <div id="filterIndicator" class="hidden">
+            <div class="card">
+                <div class="filter-indicator">
+                    <div>
+                        <span style="font-size: 13px; color: #64748b;">Filtered by:</span>
+                        <span class="filter-text" id="filterText"></span>
+                    </div>
+                    <button class="clear-filter-btn" onclick="clearFilter()">✕ Clear Filter</button>
                 </div>
             </div>
         </div>
 
-        <!-- Search and Browse Tabs -->
+        <!-- Search Interface -->
         <div class="card">
-            <div class="tabs">
-                <button class="tab active" id="searchTab" type="button">🔍 Search</button>
-                <button class="tab" id="browseTab" type="button">📂 Browse by Category</button>
+            <h3 style="font-size: 17px; font-weight: bold; color: #1e293b; margin-bottom: 12px;">🔍 Search Time Codes</h3>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search all time codes..." autocomplete="off">
             </div>
-
-            <div id="searchView">
-                <div class="search-container">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="searchInput" placeholder="Search by task name, description, or code..." autocomplete="off">
-                </div>
-                <div id="searchResults"></div>
-            </div>
-
-            <div id="browseView" class="hidden">
-                <label class="label">Step 1: Select Work Category</label>
-                <select id="categorySelect">
-                    <option value="">Choose a category...</option>
-                    <option value="Direct Client Work & Meetings">Direct Client Work & Meetings</option>
-                    <option value="Client Management, Sales & Business Development">Client Management, Sales & Business Development</option>
-                    <option value="Team Development & Quality">Team Development & Quality</option>
-                </select>
-            </div>
+            <div id="searchResults"></div>
         </div>
 
-        <div id="taskSelectCard" class="card hidden fade-in">
-            <label class="label">Step 2: Select Specific Task</label>
-            <select id="taskSelect">
-                <option value="">Choose a task...</option>
-            </select>
+        <!-- Task List (shown when category is filtered) -->
+        <div id="taskListCard" class="card hidden fade-in">
+            <h3 style="font-size: 17px; font-weight: bold; color: #1e293b; margin-bottom: 12px;" id="taskListTitle">Tasks</h3>
+            <div id="taskList"></div>
         </div>
 
         <div id="taskDetailCard" class="card hidden fade-in"></div>
@@ -401,374 +362,549 @@
         (function() {
             'use strict';
             
-            var timeCodeData = {
-                'Direct Client Work & Meetings': {
+            // Global state
+            var activeFilter = null;
+            
+            // Strategic bucket mapping
+            var bucketMapping = {
+                'Accounting Operations': {
                     color: 'bg-emerald',
-                    tasks: [
-                        {
-                            name: 'Client-Facing Deliverables',
-                            billable: true,
-                            notes: 'Includes monthly close, financial analysis, strategic support, etc. Also includes any prep work directly related to client deliverables.',
-                            code: 'Coded to the specific client level task. Expected to be coded within the Accounting, Monthly Close, Budgeting & Forecasting or Board Reporting Task Buckets.',
-                            codeLink: 'https://propellerindustries.sharepoint.com/:x:/r/sites/INTPropUniversity/Shared%20Documents/Mavenlink/Training%20Materials/Current%20Mavenlink%20Task%20List.xlsx?d=w923afade204c4e6fbbe1f2ed74de55f4&csf=1&web=1&e=fpxUYz'
-                        },
-                        {
-                            name: 'Client Meetings & Emails',
-                            billable: true,
-                            conditional: true,
-                            conditionalNote: 'If communication is specific to one task (i.e. AP/AR) utilize that specific code.',
-                            notes: 'Any meetings or communications with the client outside of the monthly close call. Monthly close calls (internal and client facing) have their own unique task.',
-                            code: 'By Client > Client Management > Client Communications'
-                        },
-                        {
-                            name: 'Internal Team Meetings (Billable)',
-                            billable: true,
-                            conditional: true,
-                            conditionalNote: 'If the call can fall into a more specific task, preference is to use that. For example: If you are discussing invoices in BILL, use code Accounts Payable at the client level.',
-                            notes: 'International team check-in calls, training calls, or client deliverable calls with US team.',
-                            code: 'By Client > Client Management > Internal Communications'
-                        }
+                    sources: [
+                        { template: 'FAS', bucket: 'Accounting' }
                     ]
                 },
-                'Client Management, Sales & Business Development': {
-                    color: 'bg-amber',
-                    tasks: [
-                        {
-                            name: 'Account Management External',
-                            billable: true,
-                            notes: 'Overall account management, scheduling meetings with the client and client team',
-                            code: 'By Client > Client Management > Client Admin'
-                        },
-                        {
-                            name: 'Account Management Internal',
-                            billable: false,
-                            notes: 'Ensuring Service Delivery alignment with client goals. This can vary broadly by client and we should use discretion with use of this code. This can include things like analysis of time for a client to determine if you need to initiate a SOW amendment.',
-                            multipleCodePaths: true,
-                            codePaths: [
-                                { type: 'option1', code: 'By Client > Client Management > Investment/Relationship (non-billable)' },
-                                { type: 'option2', code: 'By Client > Client Management > Budgeting/SOW Analysis (non-billable)' }
-                            ]
-                        },
-                        {
-                            name: 'Sales',
-                            billable: false,
-                            notes: 'Used for partnering with sales team on live lead/deal',
-                            code: 'Prop | Sales & Marketing > Sales'
-                        },
-                        {
-                            name: 'Business Development',
-                            billable: false,
-                            notes: 'Used for independent prospecting, business development, conferences, demos, etc.',
-                            code: 'Prop | Sales & Marketing > Biz Dev'
-                        },
-                        {
-                            name: 'Resourcing',
-                            billable: false,
-                            notes: 'Working on a resourcing strategy or changes for your client',
-                            code: 'Prop | Internal > Resourcing'
-                        },
-                        {
-                            name: 'Offboarding Activities (Billable)',
-                            billable: true,
-                            notes: 'Submission of offboarding ticket & compilation of disengagement memo (if over 1 hr, use discretion for billing over this standard time needed). Transition training requested by client for new hire or new firm.',
-                            code: 'By Client > Client Management > Client Admin'
-                        },
-                        {
-                            name: 'Offboarding Activities (Non-Billable)',
-                            billable: false,
-                            notes: 'If client is inactive (more than 90 days). Use your judgement depending on the scope of the ask after you have concluded regular billing.',
-                            code: 'By Client > Client Management > Investment/Relationship (non-billable)'
-                        },
-                        {
-                            name: 'Client Success Meetings or Activities',
-                            billable: false,
-                            notes: 'Internal re-groups, preparing detail for client escalations, or general CS support. Includes contract amendment analysis.',
-                            code: 'By Client > Client Management > Client Success Activities'
-                        },
-                        {
-                            name: 'Portfolio Reviews',
-                            billable: false,
-                            notes: 'Meetings scheduled with client success monthly or quarterly',
-                            code: 'Prop | Internal > Portfolio Reviews'
-                        },
-                        {
-                            name: 'Invoice Analysis and time monitoring',
-                            billable: false,
-                            notes: 'Reviewing team time at 1-2 week intervals. Month end review before invoicing goes out.',
-                            code: 'Prop | Internal > Invoice Approvals/Analysis'
-                        }
+                'Monthly Close & Financial Reporting': {
+                    color: 'bg-blue',
+                    sources: [
+                        { template: 'FAS', bucket: 'Monthly Close' }
                     ]
                 },
-                'Team Development & Quality': {
+                'Strategic Finance & Planning': {
                     color: 'bg-purple',
-                    tasks: [
-                        {
-                            name: 'Training & Client Transition',
-                            billable: false,
-                            notes: 'Nonbillable unless the client specifically requested or approved participation',
-                            conditional: true,
-                            multipleCodePaths: true,
-                            codePaths: [
-                                { type: 'billable', code: 'Coded to the specific client level task' },
-                                { type: 'nonbillable', code: 'By Client > Client Management > Client Transitions' }
-                            ]
-                        },
-                        {
-                            name: 'Internal Team Meetings (Nonbillable)',
-                            billable: false,
-                            notes: 'Unless it\'s directly tied to client needs and deliverables. Think of this category as training sessions for teams in your portfolio. Utilize client specific code if it is a topic unique to that client. If the training is more general skills, utilize mentorship.',
-                            multipleCodePaths: true,
-                            codePaths: [
-                                { type: 'option1', code: 'By Client > Client Management > Client Transitions' },
-                                { type: 'option2', code: 'Prop | Internal > Training-Mentoring/Knowledge Transfer' }
-                            ]
-                        },
-                        {
-                            name: 'Mentorship - Non-client related',
-                            billable: false,
-                            notes: 'General mentoring of team members on Propeller best practices, Propeller induced.',
-                            multipleCodePaths: true,
-                            codePaths: [
-                                { type: 'option1', code: 'Prop | Internal > New Hire Training (new hire under 90 days only)' },
-                                { type: 'option2', code: 'Prop | Internal > Training-Mentoring/Knowledge Transfer' }
-                            ]
-                        },
-                        {
-                            name: 'Mentorship - Client related',
-                            billable: false,
-                            notes: 'Client specific process and work review to provide guidance to team members',
-                            code: 'Client specific > Non-billable QC'
-                        },
-                        {
-                            name: 'Quality review Non-Billable',
-                            billable: false,
-                            notes: 'Reviewing monthly accounting work to ensure consistent quality of work. Review is typically at the engagement lead or technical accounting role.',
-                            code: 'By Client > Accounting > Non-Billable QC'
-                        },
-                        {
-                            name: 'Rework/Clean up',
-                            billable: false,
-                            notes: 'Performing rework/clean up tasks that were incurred due to Propeller team errors.',
-                            code: 'By Client > Re-Work'
-                        }
+                    sources: [
+                        { template: 'FAS', bucket: 'Budgeting & Forecasting' },
+                        { template: 'FAS', bucket: 'Board & Adhoc Reporting' }
+                    ]
+                },
+                'Onboarding & Implementation': {
+                    color: 'bg-amber',
+                    sources: [
+                        { template: 'Onboarding', bucket: 'Onboarding' },
+                        { template: 'Implementation', bucket: 'Implementation' },
+                        { template: 'FAS', bucket: 'Systems Support' }
+                    ]
+                },
+                'Transaction Advisory, Tax & Special Projects': {
+                    color: 'bg-rose',
+                    sources: [
+                        { template: 'Transaction Advisory', bucket: 'Transaction Advisory' },
+                        { template: 'FAS', bucket: 'Tax & Compliance' },
+                        { template: 'FAS', bucket: 'Special Projects' }
+                    ]
+                },
+                'Specialized Services': {
+                    color: 'bg-cyan',
+                    sources: [
+                        { template: 'TS Services', bucket: 'TS Services' },
+                        { template: 'SysOps', bucket: 'SysOps' }
+                    ]
+                },
+                'Client Relationship Management': {
+                    color: 'bg-lime',
+                    sources: [
+                        { template: 'FAS', bucket: 'Client Management' },
+                        { template: 'FAS', bucket: 'Re-Work' }
+                    ]
+                },
+                'Sales & Business Development': {
+                    color: 'bg-indigo',
+                    sources: [
+                        { template: 'PROP | Sales & Marketing', bucket: 'PROP | Sales & Marketing' }
+                    ]
+                },
+                'Internal Operations': {
+                    color: 'bg-orange',
+                    sources: [
+                        { template: 'PROP | Internal', bucket: 'Prop | Internal' },
+                        { template: 'PROP | Internal', bucket: 'Meetings' },
+                        { template: 'PROP | Internal', bucket: 'Training' },
+                        { template: 'PROP | Internal', bucket: 'Tech Support' },
+                        { template: 'PROP | Internal', bucket: 'HR' },
+                        { template: 'PROP | Internal', bucket: 'Projects' },
+                        { template: 'PROP | Internal', bucket: 'Technology Initiatives' },
+                        { template: 'PROP | Internal', bucket: 'Community' }
                     ]
                 }
             };
 
-            var searchTab = document.getElementById('searchTab');
-            var browseTab = document.getElementById('browseTab');
-            var searchView = document.getElementById('searchView');
-            var browseView = document.getElementById('browseView');
-            var searchInput = document.getElementById('searchInput');
-            var searchResults = document.getElementById('searchResults');
-            var categorySelect = document.getElementById('categorySelect');
-            var taskSelectCard = document.getElementById('taskSelectCard');
-            var taskSelect = document.getElementById('taskSelect');
-            var taskDetailCard = document.getElementById('taskDetailCard');
-
-            // Reset to initial state
-            function resetToInitial() {
-                searchInput.value = '';
-                searchResults.innerHTML = '';
-                categorySelect.value = '';
-                taskSelect.innerHTML = '<option value="">Choose a task...</option>';
-                taskSelectCard.classList.add('hidden');
-                taskDetailCard.classList.add('hidden');
-            }
-
-            searchTab.addEventListener('click', function() {
-                searchTab.classList.add('active');
-                browseTab.classList.remove('active');
-                searchView.classList.remove('hidden');
-                browseView.classList.add('hidden');
-                resetToInitial();
-            });
-
-            browseTab.addEventListener('click', function() {
-                browseTab.classList.add('active');
-                searchTab.classList.remove('active');
-                browseView.classList.remove('hidden');
-                searchView.classList.add('hidden');
-                resetToInitial();
-            });
-
-            searchInput.addEventListener('input', function(e) {
-                var query = e.target.value.toLowerCase().trim();
-                
-                if (!query) {
-                    searchResults.innerHTML = '';
-                    return;
+            // All time code data organized by template
+            var allTimeCodeData = {
+                'FAS': {
+                    'Accounting': [
+                        { name: 'Accounts Payable', billable: true, invoice: true, desc: 'clean up, Bill.com processing, review, etc', code: 'FAS > Accounting > Accounts Payable' },
+                        { name: 'Accounts Receivable', billable: true, invoice: true, desc: 'collections, invoicing, apply payments, systems sync (Stripe, Recurly etc), sales contracts, cash application', code: 'FAS > Accounting > Accounts Receivable' },
+                        { name: 'Bank Reconciliation', billable: true, invoice: true, desc: 'code bank transactions, weekly/monthly reconciliation, uncat transactions', code: 'FAS > Accounting > Bank Reconciliation' },
+                        { name: 'Revenue Recognition', billable: true, invoice: true, desc: 'setup & maintenance of deferred revenue schedule &/or workflows related to revenue recognition (ie Shopify rec process)', code: 'FAS > Accounting > Revenue Recognition' },
+                        { name: 'Payroll', billable: true, invoice: true, desc: 'clean up, EE support, setup', code: 'FAS > Accounting > Payroll' },
+                        { name: 'Inventory & COGS', billable: true, invoice: true, desc: 'item receipts, BOM maintenance, price adjustments, COGS postings', code: 'FAS > Accounting > Inventory & COGS' },
+                        { name: 'Expense Management', billable: true, invoice: true, desc: 'new EE setup, cc setup, export activity', code: 'FAS > Accounting > Expense Management' },
+                        { name: 'Trade Spend', billable: true, invoice: true, desc: '', code: 'FAS > Accounting > Trade Spend' },
+                        { name: 'Chart of Accounts', billable: true, invoice: true, desc: 'setup & maintenance', code: 'FAS > Accounting > Chart of Accounts' },
+                        { name: 'Process Optimization', billable: true, invoice: true, desc: 'process creation, documentation and improvement', code: 'FAS > Accounting > Process Optimization' },
+                        { name: 'Crypto Activity - record, reconcile, review', billable: true, invoice: true, desc: '', code: 'FAS > Accounting > Crypto Activity - record, reconcile, review' },
+                        { name: 'Technical Accounting QC', billable: true, invoice: true, desc: 'Code restricted to Technical Accounting, onboarding team & team members formally approved to support TA', code: 'FAS > Accounting > Technical Accounting QC' },
+                        { name: 'Technical Accounting Tickets', billable: true, invoice: true, desc: 'Code restricted to Technical Accounting & team members formally approved to support TA', code: 'FAS > Accounting > Technical Accounting Tickets' },
+                        { name: 'Non-Billable QC', billable: false, invoice: false, desc: 'For anything outside the expected QC norm - booked only by Acct Directors unless otherwise directed', code: 'FAS > Accounting > Non-Billable QC' }
+                    ],
+                    'Monthly Close': [
+                        { name: 'Balance Sheet Reconciliations', billable: true, invoice: true, desc: 'incl undeposited funds. Prep, review & updates to close pack', code: 'FAS > Monthly Close > Balance Sheet Reconciliations' },
+                        { name: 'Financial Statement Review & Prep', billable: true, invoice: true, desc: 'balance sheet, p&l, cash flow', code: 'FAS > Monthly Close > Financial Statement Review & Prep' },
+                        { name: 'Internal Financial Review Call', billable: true, invoice: true, desc: '', code: 'FAS > Monthly Close > Internal Financial Review Call' },
+                        { name: 'Client Financial Review Call', billable: true, invoice: true, desc: '', code: 'FAS > Monthly Close > Client Financial Review Call' }
+                    ],
+                    'Budgeting & Forecasting': [
+                        { name: 'Forecasting', billable: true, invoice: true, desc: 'FP&A-specific (generally)', code: 'FAS > Budgeting & Forecasting > Forecasting' },
+                        { name: 'Budgeting', billable: true, invoice: true, desc: 'FP&A-specific (generally)', code: 'FAS > Budgeting & Forecasting > Budgeting' },
+                        { name: 'Cash Flow Planning', billable: true, invoice: true, desc: 'FP&A-specific (generally)', code: 'FAS > Budgeting & Forecasting > Cash Flow Planning' },
+                        { name: 'Financing Support', billable: true, invoice: true, desc: 'FP&A-specific (generally)', code: 'FAS > Budgeting & Forecasting > Financing Support' }
+                    ],
+                    'Board & Adhoc Reporting': [
+                        { name: 'Board Reporting & Prep', billable: true, invoice: true, desc: 'FP&A-specific (generally)', code: 'FAS > Board & Adhoc Reporting > Board Reporting & Prep' },
+                        { name: 'Other Reporting', billable: true, invoice: true, desc: 'FP&A-specific (generally)', code: 'FAS > Board & Adhoc Reporting > Other Reporting' },
+                        { name: 'Additional Analysis', billable: true, invoice: true, desc: 'FP&A-specific (generally)', code: 'FAS > Board & Adhoc Reporting > Additional Analysis' }
+                    ],
+                    'Client Management': [
+                        { name: 'Internal Communications', billable: true, invoice: true, desc: '(REQUIRES NOTES) internal communications regarding the client including emails, chats & meetings **Utilize Accounting specific category if conversation is targeted**', code: 'FAS > Client Management > Internal Communications', requiresNotes: true },
+                        { name: 'Client Communications', billable: true, invoice: true, desc: '(REQUIRES NOTES) Email, client meetings excluding close calls, Slack etc', code: 'FAS > Client Management > Client Communications', requiresNotes: true },
+                        { name: 'Client Admin', billable: true, invoice: true, desc: 'for general client admin not covered by another task', code: 'FAS > Client Management > Client Admin' },
+                        { name: 'Client Transitions', billable: false, invoice: false, desc: 'Notes are required - should only be used by the person shadowing', code: 'FAS > Client Management > Client Transitions', requiresNotes: true },
+                        { name: 'Budgeting/SOW Analysis', billable: false, invoice: false, desc: 'Reviewing client scope docs against actual work', code: 'FAS > Client Management > Budgeting/SOW Analysis' },
+                        { name: 'Investment/Relationship', billable: false, invoice: false, desc: 'Time coded here needs to be approved by EL/CFO', code: 'FAS > Client Management > Investment/Relationship' },
+                        { name: 'Client Success Activities', billable: false, invoice: false, desc: 'Internal regroups, documentation, time analysis for escalation', code: 'FAS > Client Management > Client Success Activities' }
+                    ],
+                    'Systems Support': [
+                        { name: 'Implementation & Troubleshooting', billable: true, invoice: true, desc: '', code: 'FAS > Systems Support > Implementation & Troubleshooting' }
+                    ],
+                    'Tax & Compliance': [
+                        { name: '1099s, W-9s & 3921s', billable: true, invoice: true, desc: '', code: 'FAS > Tax & Compliance > 1099s, W-9s & 3921s' },
+                        { name: 'Income Tax Support', billable: true, invoice: true, desc: '', code: 'FAS > Tax & Compliance > Income Tax Support' },
+                        { name: 'Other Tax & Compliance Matters', billable: true, invoice: true, desc: '(REQUIRES NOTES) Franchise tax, excise tax, VAT, sales tax, business registration, payroll registration (FMLA, state disability, unemployment)', code: 'FAS > Tax & Compliance > Other Tax & Compliance Matters', requiresNotes: true }
+                    ],
+                    'Re-Work': [
+                        { name: 'Re-Work', billable: false, invoice: false, desc: 'Non-billable', code: 'FAS > Re-Work > Re-Work' }
+                    ],
+                    'Special Projects': [
+                        { name: 'Audit Support', billable: true, invoice: true, desc: '', code: 'FAS > Special Projects > Audit Support' },
+                        { name: 'Diligence', billable: true, invoice: true, desc: 'includes support for M&A and Debt/Equity Fundraising', code: 'FAS > Special Projects > Diligence' },
+                        { name: 'Other Special Projects', billable: true, invoice: true, desc: 'Notes are required', code: 'FAS > Special Projects > Other Special Projects', requiresNotes: true }
+                    ]
+                },
+                'Onboarding': {
+                    'Onboarding': [
+                        { name: '(OB) Client System Access', billable: true, invoice: true, desc: 'All client system access and set-up that happens as part of the onboarding phase', code: 'Onboarding > Onboarding > (OB) Client System Access' },
+                        { name: '(OB) Welcome Call', billable: true, invoice: true, desc: 'Preparation for and holding the welcome call with the client (no longer applicable)', code: 'Onboarding > Onboarding > (OB) Welcome Call' },
+                        { name: '(OB) Client Communications', billable: true, invoice: true, desc: 'Any client communications or meetings held during the onboarding phase that are related to onboarding activities.  Any meetings related to implementation should be booked to the Implementation Client Communication / Meetings task and billed as T&M', code: 'Onboarding > Onboarding > (OB) Client Communications' },
+                        { name: '(OB) Internal Communications', billable: true, invoice: true, desc: 'Any internal communications or meetings held during the onboarding phase that are related to onboarding activities.  Any meetings related to implementation should be booked to the Implementation Client Communication / Meetings task and billed as T&M', code: 'Onboarding > Onboarding > (OB) Internal Communications' },
+                        { name: '(OB) Other Onboarding Activities', billable: true, invoice: true, desc: 'Any other onboarding activities performed for a client', code: 'Onboarding > Onboarding > (OB) Other Onboarding Activities' }
+                    ]
+                },
+                'Implementation': {
+                    'Implementation': [
+                        { name: '(IMPL) Chart of Accounts', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related Chart of Accounts including build out, mapping, upload and review', code: 'Implementation > Implementation > (IMPL) Chart of Accounts' },
+                        { name: '(IMPL) Bank Accounts / Credit Cards', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related to Bank Accounts, Credit Cards and reconciling Undeposited Funds', code: 'Implementation > Implementation > (IMPL) Bank Accounts / Credit Cards' },
+                        { name: '(IMPL) Revenue / AR', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related to Merchant Accounts, Revenue, Deferred Revenue, Accounts Receivable or Trade Spend', code: 'Implementation > Implementation > (IMPL) Revenue / AR' },
+                        { name: '(IMPL) Inventory / COGS', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related to Inventory or COGS', code: 'Implementation > Implementation > (IMPL) Inventory / COGS' },
+                        { name: '(IMPL) Op Ex & Other Balance Sheet', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related to Prepaid Expenses, Accrued Expenses, General Expenses, Fixed Assets or Other Current Assets', code: 'Implementation > Implementation > (IMPL) Op Ex & Other Balance Sheet' },
+                        { name: '(IMPL) Payroll', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related to Payroll or Payroll Liabilities', code: 'Implementation > Implementation > (IMPL) Payroll' },
+                        { name: '(IMPL) Loans & Equity', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related to Current Liabilities, Long Term Liabilities or Equity', code: 'Implementation > Implementation > (IMPL) Loans & Equity' },
+                        { name: '(IMPL) Accounts Payable', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related to Accounts Payable', code: 'Implementation > Implementation > (IMPL) Accounts Payable' },
+                        { name: '(IMPL) Tax & Compliance', billable: true, invoice: true, desc: 'All meetings, clean-up, process optimization or other implementation activities related to tax and compliance such as W9 or 1099 audits, DE Franchise Tax, etc.', code: 'Implementation > Implementation > (IMPL) Tax & Compliance' },
+                        { name: '(IMPL) Client Communications', billable: true, invoice: true, desc: 'Any client communications or meetings held during implementation', code: 'Implementation > Implementation > (IMPL) Client Communications' },
+                        { name: '(IMPL) Internal Communications', billable: true, invoice: true, desc: 'Any internal communications or meetings held during implementation or any client review / preparation tha tneeds to happen prior to the implementation call', code: 'Implementation > Implementation > (IMPL) Internal Communications' },
+                        { name: '(IMPL) System Set-up or Migration', billable: true, invoice: true, desc: 'Any implementation activities related to setting up a new system for a client (payroll, expense, etc.) or to migrate a client\'s data from one GL to another (i.e. QBO->NetSuite)', code: 'Implementation > Implementation > (IMPL) System Set-up or Migration' },
+                        { name: '(IMPL) Crypto', billable: true, invoice: true, desc: 'All implementation activities related to the review, coding and process optimization of crypto', code: 'Implementation > Implementation > (IMPL) Crypto' },
+                        { name: '(IMPL) Financial Statement Review', billable: true, invoice: true, desc: 'Soft close of financial statements and review of balance sheet, p&l, cash flow', code: 'Implementation > Implementation > (IMPL) Financial Statement Review' },
+                        { name: '(IMPL) Transition to Steady State', billable: true, invoice: true, desc: 'Transition work from implementation team to steady state team or transition workload to lowest-cost Propeller resources', code: 'Implementation > Implementation > (IMPL) Transition to Steady State' },
+                        { name: '(IMPL) Special Projects', billable: true, invoice: true, desc: 'Any special or one-off projects handled for a client during implementation', code: 'Implementation > Implementation > (IMPL) Special Projects' },
+                        { name: '(IMPL) D-Report / Model Set-Up / Budget', billable: true, invoice: true, desc: 'All implementation activities related to the initial set-up of the D-Report, Modeling, Scenario Planning or Budget (all FP&A related set-up implementation activities)', code: 'Implementation > Implementation > (IMPL) D-Report / Model Set-Up / Budget' },
+                        { name: '(IMPL) Quality Check', billable: true, invoice: true, desc: 'Quality check hrs - for transition to Steady State', code: 'Implementation > Implementation > (IMPL) Quality Check' },
+                        { name: '(IMPL) Non-Billable QC', billable: false, invoice: false, desc: 'Non-billable QC hours as needed', code: 'Implementation > Implementation > (IMPL) Non-Billable QC' }
+                    ]
+                },
+                'TS Services': {
+                    'TS Services': [
+                        { name: 'Data Entry', billable: true, invoice: true, desc: 'clean up, Bill.com processing, review, etc', code: 'TS Services > TS Services > Data Entry' },
+                        { name: 'Reporting & Analysis', billable: true, invoice: true, desc: 'collections, invoicing, apply payments, systems sync (Stripe, Recurly etc), sales contracts, cash application', code: 'TS Services > TS Services > Reporting & Analysis' },
+                        { name: 'Dispute Management', billable: true, invoice: true, desc: 'code bank transactions, weekly/monthly reconciliation, uncat transactions', code: 'TS Services > TS Services > Dispute Management' },
+                        { name: 'Historical Cleanup & Ad Hoc Projects', billable: true, invoice: true, desc: 'setup & maintenance of deferred revenue schedule &/or workflows related to revenue recognition (ie Shopify rec process)', code: 'TS Services > TS Services > Historical Cleanup & Ad Hoc Projects' }
+                    ]
+                },
+                'Transaction Advisory': {
+                    'Transaction Advisory': [
+                        { name: 'Kick-Off Call/Weekly Check-In', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Kick-Off Call/Weekly Check-In' },
+                        { name: 'Investor Model', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Investor Model' },
+                        { name: 'Pitch Deck', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Pitch Deck' },
+                        { name: 'Investor List Creation', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Investor List Creation' },
+                        { name: 'Investor List Review', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Investor List Review' },
+                        { name: 'Investor Outreach', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Investor Outreach' },
+                        { name: 'Investor Meeting', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Investor Meeting' },
+                        { name: 'Due Diligence', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Due Diligence' },
+                        { name: 'Term Sheet Negotiations/Documentation', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Term Sheet Negotiations/Documentation' },
+                        { name: 'Cap Table Dilution/Waterfall Analysis', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Cap Table Dilution/Waterfall Analysis' },
+                        { name: 'Valuation Analysis', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Valuation Analysis' },
+                        { name: 'Advisory', billable: true, invoice: true, desc: '', code: 'Transaction Advisory > Transaction Advisory > Advisory' }
+                    ]
+                },
+                'SysOps': {
+                    'SysOps': [
+                        { name: 'Implementation', billable: true, invoice: true, desc: '', code: 'SysOps > SysOps > Implementation' }
+                    ]
+                },
+                'PROP | Sales & Marketing': {
+                    'PROP | Sales & Marketing': [
+                        { name: 'Marketing', billable: false, invoice: false, desc: '', code: 'PROP | Sales & Marketing > PROP | Sales & Marketing > Marketing' },
+                        { name: 'Sales', billable: false, invoice: false, desc: 'For use when parterning with sales team on live lead/deal', code: 'PROP | Sales & Marketing > PROP | Sales & Marketing > Sales' },
+                        { name: 'Biz Dev', billable: false, invoice: false, desc: 'For all other activity (generate leads, events, partnerships, etc.)', code: 'PROP | Sales & Marketing > PROP | Sales & Marketing > Biz Dev' }
+                    ]
+                },
+                'PROP | Internal': {
+                    'Prop | Internal': [
+                        { name: 'Admin', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Prop | Internal > Admin' },
+                        { name: 'Timesheets', billable: false, invoice: false, desc: 'Time spent entering timesheets.', code: 'PROP | Internal > Prop | Internal > Timesheets' },
+                        { name: 'Portfolio Reviews', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Prop | Internal > Portfolio Reviews' },
+                        { name: 'Invoice Approvals/Analysis', billable: false, invoice: false, desc: 'Utilize for review at month-end', code: 'PROP | Internal > Prop | Internal > Invoice Approvals/Analysis' },
+                        { name: 'Resourcing', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Prop | Internal > Resourcing' },
+                        { name: 'Awaiting Work', billable: false, invoice: false, desc: 'Contact manager if this code is needed', code: 'PROP | Internal > Prop | Internal > Awaiting Work' }
+                    ],
+                    'Meetings': [
+                        { name: 'Recurring Internal Meetings', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Meetings > Recurring Internal Meetings' },
+                        { name: '1:1 Check-ins', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Meetings > 1:1 Check-ins' },
+                        { name: 'Feedback/Reviews', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Meetings > Feedback/Reviews' },
+                        { name: 'Ad-hoc Meeting', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Meetings > Ad-hoc Meeting' }
+                    ],
+                    'Training': [
+                        { name: 'New Hire Training', billable: false, invoice: false, desc: 'Time for new hires within first 90 days. Use for shadowing & self-study', code: 'PROP | Internal > Training > New Hire Training' },
+                        { name: 'Systems Training', billable: false, invoice: false, desc: 'BILL, Ramp, NetSuite, Intacct, QBO, etc', code: 'PROP | Internal > Training > Systems Training' },
+                        { name: 'Training - Education/Courses/Classes', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Training > Training - Education/Courses/Classes' },
+                        { name: 'Training - Mentoring/Knowledge Transfer', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Training > Training - Mentoring/Knowledge Transfer' }
+                    ],
+                    'Tech Support': [
+                        { name: 'Tech Support', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Tech Support > Tech Support' }
+                    ],
+                    'HR': [
+                        { name: 'HR', billable: false, invoice: false, desc: '', code: 'PROP | Internal > HR > HR' }
+                    ],
+                    'Projects': [
+                        { name: 'Industry Playbooks', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Projects > Industry Playbooks' },
+                        { name: 'Growth Stage', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Projects > Growth Stage' },
+                        { name: 'Technology Initiatives', billable: false, invoice: false, desc: 'Utilize for all AI projects & exploration', code: 'PROP | Internal > Projects > Technology Initiatives' },
+                        { name: 'Other Projects', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Projects > Other Projects' }
+                    ],
+                    'Technology Initiatives': [
+                        { name: 'Numeric', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Technology Initiatives > Numeric' }
+                    ],
+                    'Community': [
+                        { name: 'Fun & Fitness', billable: false, invoice: false, desc: 'Events on the Fun & Fitness calendar, happy hours, water coolers,etc.', code: 'PROP | Internal > Community > Fun & Fitness' }
+                    ]
                 }
+            };
 
-                var results = [];
-                for (var category in timeCodeData) {
-                    var data = timeCodeData[category];
-                    for (var i = 0; i < data.tasks.length; i++) {
-                        var task = data.tasks[i];
-                        var codeText = task.multipleCodePaths 
-                            ? task.codePaths.map(function(cp) { return cp.code; }).join(' ')
-                            : task.code || '';
-                        var searchableText = (task.name + ' ' + task.notes + ' ' + codeText).toLowerCase();
-                        
-                        if (searchableText.indexOf(query) !== -1) {
-                            var result = {};
-                            for (var key in task) {
-                                result[key] = task[key];
-                            }
-                            result.category = category;
-                            result.categoryColor = data.color;
-                            results.push(result);
-                        }
-                    }
-                }
-
-                displaySearchResults(results, query);
-            });
-
-            function displaySearchResults(results, query) {
-                if (results.length === 0) {
-                    searchResults.innerHTML = '<div class="no-results"><p>No results found for "' + escapeHtml(query) + '"</p><p style="margin-top: 8px; font-size: 14px;">Try different keywords or browse by category</p></div>';
-                    return;
-                }
-
-                searchResults.innerHTML = results.map(function(result, idx) {
-                    return '<div class="search-result-item" onclick="showTaskFromSearch(\'' + 
-                        escapeHtml(result.category) + '\', \'' + escapeHtml(result.name).replace(/'/g, "\\'") + '\')">' +
-                        '<div class="search-result-title">' +
-                        highlightText(result.name, query) +
-                        '<span class="badge ' + (result.billable ? 'badge-billable' : 'badge-nonbillable') + ' badge-small">' +
-                        (result.billable ? '✓' : '✗') +
-                        '</span></div>' +
-                        '<div class="search-result-category">' + escapeHtml(result.category) + '</div>' +
-                        '<div class="search-result-snippet">' +
-                        escapeHtml(result.notes.substring(0, 120)) + (result.notes.length > 120 ? '...' : '') +
-                        '</div></div>';
-                }).join('');
+            // Helper functions
+            function escapeHtml(text) {
+                var div = document.createElement('div');
+                div.textContent = text || '';
+                return div.innerHTML;
             }
 
             function highlightText(text, query) {
+                if (!query) return escapeHtml(text);
                 var regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
                 return escapeHtml(text).replace(regex, '<span class="highlight">$1</span>');
             }
 
-            function escapeHtml(text) {
-                var div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            }
-
-            window.showTaskFromSearch = function(category, taskName) {
-                browseTab.click();
-                categorySelect.value = category;
-                updateTaskSelect();
-                taskSelect.value = taskName;
-                displayTaskDetail(category, taskName);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
-
-            categorySelect.addEventListener('change', function(e) {
-                if (e.target.value) {
-                    updateTaskSelect();
-                    taskSelectCard.classList.remove('hidden');
-                    taskDetailCard.classList.add('hidden');
-                } else {
-                    taskSelectCard.classList.add('hidden');
-                    taskDetailCard.classList.add('hidden');
-                }
-            });
-
-            function updateTaskSelect() {
-                var category = categorySelect.value;
-                var tasks = timeCodeData[category].tasks;
+            // Get all tasks for a strategic bucket
+            function getTasksForBucket(bucketName) {
+                var bucket = bucketMapping[bucketName];
+                var tasks = [];
                 
-                taskSelect.innerHTML = '<option value="">Choose a task...</option>' +
-                    tasks.map(function(task) {
-                        return '<option value="' + escapeHtml(task.name) + '">' + 
-                            escapeHtml(task.name) + ' ' + (task.billable ? '✓ Billable' : '✗ Non-Billable') + 
-                            '</option>';
-                    }).join('');
-            }
-
-            taskSelect.addEventListener('change', function(e) {
-                if (e.target.value) {
-                    displayTaskDetail(categorySelect.value, e.target.value);
-                } else {
-                    taskDetailCard.classList.add('hidden');
-                }
-            });
-
-            function displayTaskDetail(category, taskName) {
-                var categoryData = timeCodeData[category];
-                var task = null;
-                for (var i = 0; i < categoryData.tasks.length; i++) {
-                    if (categoryData.tasks[i].name === taskName) {
-                        task = categoryData.tasks[i];
-                        break;
+                bucket.sources.forEach(function(source) {
+                    var templateData = allTimeCodeData[source.template];
+                    if (templateData && templateData[source.bucket]) {
+                        templateData[source.bucket].forEach(function(task) {
+                            tasks.push({
+                                task: task,
+                                template: source.template,
+                                bucket: source.bucket,
+                                strategicBucket: bucketName
+                            });
+                        });
                     }
-                }
+                });
                 
-                var codeSection = '';
-                if (task.multipleCodePaths) {
-                    codeSection = '<div class="section"><div class="section-title">Time Code Path Options</div><div class="code-options">' +
-                        task.codePaths.map(function(cp) {
-                            var label = cp.type === 'billable' ? 'BILLABLE' : 
-                                       cp.type === 'nonbillable' ? 'NON-BILLABLE' : 
-                                       cp.type === 'option1' ? 'OPTION 1' : 'OPTION 2';
-                            var labelClass = (cp.type === 'billable' ? 'code-label-billable' : 'code-label-nonbillable');
-                            return '<div class="code-option"><div class="code-option-header">' +
-                                '<span class="code-label ' + labelClass + '">' + label + '</span></div>' +
-                                '<div class="code-path">' + escapeHtml(cp.code) + '</div></div>';
-                        }).join('') + '</div></div>';
-                } else {
-                    codeSection = '<div class="section"><div class="section-title">Time Code Path</div><div class="code-block">' +
-                        escapeHtml(task.code) +
-                        (task.codeLink ? ' <a href="' + task.codeLink + '" target="_blank" rel="noopener noreferrer">See full code list here</a>' : '') +
-                        '</div></div>';
-                }
-
-                // Determine what alert to show
-                var alertSection = '';
-                if (task.conditionalNote) {
-                    // Use custom conditional note if provided
-                    alertSection = '<div class="alert"><span style="color: #92400e;">ℹ</span>' +
-                        '<p class="alert-text">' + escapeHtml(task.conditionalNote) + '</p></div>';
-                } else if (task.conditional) {
-                    // Use default conditional message
-                    alertSection = '<div class="alert"><span style="color: #92400e;">ℹ</span>' +
-                        '<p class="alert-text">Note: This task can be billable if client specifically requested or approved participation</p></div>';
-                }
-
-                taskDetailCard.innerHTML = 
-                    '<div class="task-header"><h2 class="task-title">' + escapeHtml(task.name) + '</h2>' +
-                    '<span class="badge ' + (task.billable ? 'badge-billable' : 'badge-nonbillable') + '">' +
-                    (task.billable ? '$ Billable' : '✗ Non-Billable') + '</span></div>' +
-                    alertSection +
-                    '<div class="section"><div class="section-title">ℹ Description & Guidance</div>' +
-                    '<div class="section-content">' + escapeHtml(task.notes) + '</div></div>' +
-                    codeSection;
-                
-                taskDetailCard.className = 'card fade-in ' + categoryData.color;
-                taskDetailCard.classList.remove('hidden');
+                return tasks;
             }
 
-            // Function to select a category from quick reference boxes
-            window.selectCategory = function(category) {
-                // Switch to browse tab
-                browseTab.click();
+            // Get all tasks across all buckets
+            function getAllTasks() {
+                var allTasks = [];
+                for (var bucketName in bucketMapping) {
+                    allTasks = allTasks.concat(getTasksForBucket(bucketName));
+                }
+                return allTasks;
+            }
+
+            // Determine if a template is client-level or global-level
+            function getTaskLevel(template) {
+                var globalTemplates = ['PROP | Sales & Marketing', 'PROP | Internal'];
+                return globalTemplates.indexOf(template) !== -1 ? 'Global' : 'Client';
+            }
+
+            // Initialize category cards
+            function initializeCategoryCards() {
+                var categoryCards = document.getElementById('categoryCards');
+                var html = '';
                 
-                // Set the category dropdown
-                categorySelect.value = category;
+                for (var bucketName in bucketMapping) {
+                    var bucket = bucketMapping[bucketName];
+                    var tasks = getTasksForBucket(bucketName);
+                    var billableCount = tasks.filter(function(t) { return t.task.billable; }).length;
+                    
+                    html += '<div class="ref-card ' + bucket.color + '" onclick="applyFilter(\'' + 
+                        escapeHtml(bucketName).replace(/'/g, "\\'") + '\')">' +
+                        '<div class="ref-title">' + escapeHtml(bucketName) + '</div>' +
+                        '<div class="ref-text">' + tasks.length + ' tasks (' + billableCount + ' billable)</div>' +
+                        '</div>';
+                }
                 
-                // Update task selector
-                updateTaskSelect();
+                categoryCards.innerHTML = html;
+            }
+
+            // Apply filter to a specific bucket
+            window.applyFilter = function(bucketName) {
+                activeFilter = bucketName;
                 
-                // Show task selector card
-                taskSelectCard.classList.remove('hidden');
-                taskDetailCard.classList.add('hidden');
+                // Show filter indicator
+                document.getElementById('filterIndicator').classList.remove('hidden');
+                document.getElementById('filterText').textContent = bucketName;
+                
+                // Display task list for this bucket
+                displayTaskList(bucketName);
+                
+                // Clear any existing detail view
+                document.getElementById('taskDetailCard').classList.add('hidden');
+                
+                // Clear search
+                document.getElementById('searchInput').value = '';
+                document.getElementById('searchResults').innerHTML = '';
                 
                 // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
+
+            // Display task list for a bucket
+            function displayTaskList(bucketName) {
+                var taskListCard = document.getElementById('taskListCard');
+                var taskListTitle = document.getElementById('taskListTitle');
+                var taskList = document.getElementById('taskList');
+                var bucket = bucketMapping[bucketName];
+                
+                var tasks = getTasksForBucket(bucketName);
+                
+                taskListTitle.textContent = bucketName + ' (' + tasks.length + ' tasks)';
+                
+                var html = tasks.map(function(taskObj) {
+                    var task = taskObj.task;
+                    var level = getTaskLevel(taskObj.template);
+                    return '<div class="task-list-item" onclick="showTaskDetail(\'' + 
+                        escapeHtml(taskObj.template).replace(/'/g, "\\'") + '\', \'' +
+                        escapeHtml(taskObj.bucket).replace(/'/g, "\\'") + '\', \'' +
+                        escapeHtml(task.name).replace(/'/g, "\\'") + '\')">' +
+                        '<div class="task-list-name">' + escapeHtml(task.name) + '</div>' +
+                        '<div>' +
+                        '<span class="badge ' + (task.billable ? 'badge-billable' : 'badge-nonbillable') + ' badge-small">' +
+                        (task.billable ? '✓' : '✗') +
+                        '</span>' +
+                        '<span class="badge badge-level">' + level + '</span>' +
+                        '</div></div>';
+                }).join('');
+                
+                taskList.innerHTML = html;
+                taskListCard.classList.remove('hidden');
+            }
+
+            // Clear filter
+            window.clearFilter = function() {
+                activeFilter = null;
+                
+                // Hide filter indicator
+                document.getElementById('filterIndicator').classList.add('hidden');
+                
+                // Hide task list
+                document.getElementById('taskListCard').classList.add('hidden');
+                
+                // Clear any existing detail view
+                document.getElementById('taskDetailCard').classList.add('hidden');
+                
+                // Clear search
+                document.getElementById('searchInput').value = '';
+                document.getElementById('searchResults').innerHTML = '';
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // Setup search
+            function setupSearch() {
+                var searchInput = document.getElementById('searchInput');
+                var searchResults = document.getElementById('searchResults');
+                
+                searchInput.addEventListener('input', function(e) {
+                    var query = e.target.value.toLowerCase().trim();
+                    
+                    if (!query) {
+                        searchResults.innerHTML = '';
+                        return;
+                    }
+                    
+                    var tasks = activeFilter ? getTasksForBucket(activeFilter) : getAllTasks();
+                    var results = tasks.filter(function(taskObj) {
+                        var task = taskObj.task;
+                        var searchText = (task.name + ' ' + task.desc + ' ' + task.code).toLowerCase();
+                        return searchText.indexOf(query) !== -1;
+                    });
+                    
+                    displaySearchResults(results, query);
+                });
+            }
+
+            // Display search results
+            function displaySearchResults(results, query) {
+                var searchResults = document.getElementById('searchResults');
+                
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="no-results"><p>No results found for "' + escapeHtml(query) + '"</p><p style="margin-top: 8px; font-size: 14px;">Try different keywords or browse by category</p></div>';
+                    return;
+                }
+                
+                searchResults.innerHTML = results.map(function(taskObj) {
+                    var task = taskObj.task;
+                    var level = getTaskLevel(taskObj.template);
+                    return '<div class="search-result-item" onclick="showTaskFromSearch(\'' + 
+                        escapeHtml(taskObj.template).replace(/'/g, "\\'") + '\', \'' +
+                        escapeHtml(taskObj.bucket).replace(/'/g, "\\'") + '\', \'' +
+                        escapeHtml(task.name).replace(/'/g, "\\'") + '\')">' +
+                        '<div class="search-result-title">' +
+                        highlightText(task.name, query) +
+                        '<span class="badge ' + (task.billable ? 'badge-billable' : 'badge-nonbillable') + ' badge-small">' +
+                        (task.billable ? '✓' : '✗') +
+                        '</span>' +
+                        '<span class="badge badge-level">' + level + '</span>' +
+                        '</div>' +
+                        '<div class="search-result-meta">' + escapeHtml(taskObj.strategicBucket) + '</div>' +
+                        '<div class="search-result-snippet">' +
+                        escapeHtml(task.desc ? task.desc.substring(0, 120) : '') + 
+                        (task.desc && task.desc.length > 120 ? '...' : '') +
+                        '</div></div>';
+                }).join('');
+            }
+
+            // Show task from search
+            window.showTaskFromSearch = function(template, bucket, taskName) {
+                displayTaskDetail(template, bucket, taskName);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // Show task detail (called from task list)
+            window.showTaskDetail = function(template, bucket, taskName) {
+                displayTaskDetail(template, bucket, taskName);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // Display task detail
+            function displayTaskDetail(template, bucket, taskName) {
+                var task = allTimeCodeData[template][bucket].find(function(t) {
+                    return t.name === taskName;
+                });
+                
+                if (!task) return;
+                
+                // Find which strategic bucket this belongs to
+                var strategicBucket = null;
+                var strategicBucketColor = 'bg-blue';
+                for (var bucketName in bucketMapping) {
+                    var bucketInfo = bucketMapping[bucketName];
+                    var found = bucketInfo.sources.some(function(source) {
+                        return source.template === template && source.bucket === bucket;
+                    });
+                    if (found) {
+                        strategicBucket = bucketName;
+                        strategicBucketColor = bucketInfo.color;
+                        break;
+                    }
+                }
+                
+                var taskDetailCard = document.getElementById('taskDetailCard');
+                var level = getTaskLevel(template);
+                
+                var html = '<div class="task-header">' +
+                    '<h2 class="task-title">' + escapeHtml(task.name) + '</h2>' +
+                    '<div>' +
+                    '<span class="badge ' + (task.billable ? 'badge-billable' : 'badge-nonbillable') + '">' +
+                    (task.billable ? '$ Billable' : '✗ Non-Billable') + '</span>' +
+                    '<span class="badge badge-level">' + level + '</span>' +
+                    '</div>' +
+                    '</div>';
+                
+                // Add category info
+                if (strategicBucket) {
+                    html += '<div class="section">' +
+                        '<div class="section-title">Category</div>' +
+                        '<div class="section-content">' + escapeHtml(strategicBucket) + '</div>' +
+                        '</div>';
+                }
+                
+                // Add requires notes alert if applicable
+                if (task.requiresNotes) {
+                    html += '<div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; margin-bottom: 14px; border-radius: 4px; display: flex; gap: 8px;">' +
+                        '<span style="color: #92400e;">ℹ</span>' +
+                        '<p style="font-size: 13px; color: #92400e; font-weight: 500; line-height: 1.4; margin: 0;">Note: This task requires notes when logging time</p>' +
+                        '</div>';
+                }
+                
+                // Description section
+                if (task.desc) {
+                    html += '<div class="section">' +
+                        '<div class="section-title">ℹ Description & Guidance</div>' +
+                        '<div class="section-content">' + escapeHtml(task.desc) + '</div>' +
+                        '</div>';
+                }
+                
+                // Code path section
+                html += '<div class="section">' +
+                    '<div class="section-title">Time Code Path</div>' +
+                    '<div class="code-block">' + escapeHtml(task.code) + '</div>' +
+                    '</div>';
+                
+                // Invoice appearance
+                if (task.invoice !== undefined) {
+                    html += '<div class="section">' +
+                        '<div class="section-title">Appears on Invoice</div>' +
+                        '<div class="section-content">' + (task.invoice ? 'Yes' : 'No') + '</div>' +
+                        '</div>';
+                }
+                
+                taskDetailCard.innerHTML = html;
+                taskDetailCard.className = 'card fade-in ' + strategicBucketColor;
+                taskDetailCard.classList.remove('hidden');
+            }
+
+            // Initialize
+            function init() {
+                initializeCategoryCards();
+                setupSearch();
+            }
+
+            init();
         })();
     </script>
 </body>
