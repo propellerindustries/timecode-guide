@@ -697,8 +697,11 @@
                 document.getElementById('searchInput').value = '';
                 document.getElementById('searchResults').innerHTML = '';
                 
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Scroll to task list
+                setTimeout(function() {
+                    var taskListCard = document.getElementById('taskListCard');
+                    taskListCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
             };
 
             // Display task list for a bucket
@@ -811,13 +814,23 @@
             // Show task from search
             window.showTaskFromSearch = function(template, bucket, taskName) {
                 displayTaskDetail(template, bucket, taskName);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Scroll to task detail
+                setTimeout(function() {
+                    var taskDetailCard = document.getElementById('taskDetailCard');
+                    taskDetailCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
             };
 
             // Show task detail (called from task list)
             window.showTaskDetail = function(template, bucket, taskName) {
                 displayTaskDetail(template, bucket, taskName);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Scroll to task detail
+                setTimeout(function() {
+                    var taskDetailCard = document.getElementById('taskDetailCard');
+                    taskDetailCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
             };
 
             // Display task detail
