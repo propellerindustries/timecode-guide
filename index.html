@@ -478,9 +478,9 @@
                         { name: 'Client Communications', billable: true, invoice: true, desc: '(REQUIRES NOTES) Email, client meetings excluding close calls, Slack etc', code: 'FAS > Client Management > Client Communications', requiresNotes: true },
                         { name: 'Client Admin', billable: true, invoice: true, desc: 'for general client admin not covered by another task', code: 'FAS > Client Management > Client Admin' },
                         { name: 'Client Transitions', billable: false, invoice: false, desc: 'Notes are required - should only be used by the person shadowing', code: 'FAS > Client Management > Client Transitions', requiresNotes: true },
-                        { name: 'Budgeting/SOW Analysis', billable: false, invoice: false, desc: 'Reviewing client scope docs against actual work', code: 'FAS > Client Management > Budgeting/SOW Analysis' },
-                        { name: 'Investment/Relationship', billable: false, invoice: false, desc: 'Time coded here needs to be approved by EL/CFO', code: 'FAS > Client Management > Investment/Relationship' },
-                        { name: 'Client Success Activities', billable: false, invoice: false, desc: 'Internal regroups, documentation, time analysis for escalation', code: 'FAS > Client Management > Client Success Activities' }
+                        { name: 'Budgeting/SOW Analysis', billable: false, invoice: false, desc: 'EL and client team (no C/S involvement) reviewing of client scope docs (time analysis, budget, amendments, etc.) against actual work', code: 'FAS > Client Management > Budgeting/SOW Analysis' },
+                        { name: 'Investment/Relationship', billable: false, invoice: false, desc: 'Time coded here needs to be approved by EL/CFO and a MD for an investment credit - before usage', code: 'FAS > Client Management > Investment/Relationship' },
+                        { name: 'Client Success Activities', billable: false, invoice: false, desc: 'Internal regroups, documentation, time analysis for escalation in direct partnership with the C/S team', code: 'FAS > Client Management > Client Success Activities' }
                     ],
                     'Systems Support': [
                         { name: 'Implementation & Troubleshooting', billable: true, invoice: true, desc: '', code: 'FAS > Systems Support > Implementation & Troubleshooting' }
@@ -562,14 +562,14 @@
                 },
                 'PROP | Sales & Marketing': {
                     'PROP | Sales & Marketing': [
-                        { name: 'Marketing', billable: false, invoice: false, desc: '', code: 'PROP | Sales & Marketing > PROP | Sales & Marketing > Marketing' },
+                        { name: 'Marketing', billable: false, invoice: false, desc: 'Working directly with the marketing team', code: 'PROP | Sales & Marketing > PROP | Sales & Marketing > Marketing' },
                         { name: 'Sales', billable: false, invoice: false, desc: 'For use when parterning with sales team on live lead/deal', code: 'PROP | Sales & Marketing > PROP | Sales & Marketing > Sales' },
-                        { name: 'Biz Dev', billable: false, invoice: false, desc: 'For all other activity (generate leads, events, partnerships, etc.)', code: 'PROP | Sales & Marketing > PROP | Sales & Marketing > Biz Dev' }
+                        { name: 'Biz Dev', billable: false, invoice: false, desc: 'For all other activity not directly tied to a live sales deal/lead (generate leads, events, partnerships, etc.)', code: 'PROP | Sales & Marketing > PROP | Sales & Marketing > Biz Dev' }
                     ]
                 },
                 'PROP | Internal': {
                     'Prop | Internal': [
-                        { name: 'Admin', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Prop | Internal > Admin' },
+                        { name: 'Admin', billable: false, invoice: false, desc: 'Minimal usage for internal overhead only. Otherwise, bill to client or use specific operations codes', code: 'PROP | Internal > Prop | Internal > Admin' },
                         { name: 'Timesheets', billable: false, invoice: false, desc: 'Time spent entering timesheets.', code: 'PROP | Internal > Prop | Internal > Timesheets' },
                         { name: 'Portfolio Reviews', billable: false, invoice: false, desc: '', code: 'PROP | Internal > Prop | Internal > Portfolio Reviews' },
                         { name: 'Invoice Approvals/Analysis', billable: false, invoice: false, desc: 'Utilize for review at month-end', code: 'PROP | Internal > Prop | Internal > Invoice Approvals/Analysis' },
