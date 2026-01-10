@@ -24,6 +24,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding-bottom: 100px;
         }
         .card {
             background: white;
@@ -72,6 +73,37 @@
         }
         .clear-filter-btn:hover {
             background: #2563eb;
+        }
+        .fixed-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .fixed-clear-btn {
+            padding: 12px 32px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+        .fixed-clear-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
         }
         .label {
             display: block;
@@ -356,6 +388,11 @@
         </div>
 
         <div id="taskDetailCard" class="card hidden fade-in"></div>
+    </div>
+
+    <!-- Fixed Bottom Bar for Clear Filter -->
+    <div id="fixedBottomBar" class="fixed-bottom-bar hidden">
+        <button class="fixed-clear-btn" onclick="clearFilter()">✕ Clear Filter & Return to Categories</button>
     </div>
 
     <script>
@@ -687,6 +724,9 @@
                 document.getElementById('filterIndicator').classList.remove('hidden');
                 document.getElementById('filterText').textContent = bucketName;
                 
+                // Show fixed bottom bar
+                document.getElementById('fixedBottomBar').classList.remove('hidden');
+                
                 // Display task list for this bucket
                 displayTaskList(bucketName);
                 
@@ -741,6 +781,9 @@
                 
                 // Hide filter indicator
                 document.getElementById('filterIndicator').classList.add('hidden');
+                
+                // Hide fixed bottom bar
+                document.getElementById('fixedBottomBar').classList.add('hidden');
                 
                 // Hide task list
                 document.getElementById('taskListCard').classList.add('hidden');
